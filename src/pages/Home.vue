@@ -4,10 +4,12 @@
       <el-header>
         <el-row>
           <el-col :span="12">
-            <div class="grid-content bg-purple">导航页</div>
+            <div class="grid-content bg-purple"
+                 @click="jumpToNav">导航页</div>
           </el-col>
           <el-col :span="12">
-            <div class="grid-content bg-purple-light">表格页</div>
+            <div class="grid-content bg-purple-light"
+                 @click="jumpToTable">表格页</div>
           </el-col>
         </el-row>
       </el-header>
@@ -19,7 +21,14 @@
 </template>
 <script>
 export default {
-
+  methods: {
+    jumpToNav() {
+      this.$router.push('/navBar')
+    },
+    jumpToTable() {
+      this.$router.push('/tableBar')
+    }
+  },
 }
 </script>
 <style lang='less' scoped>
@@ -42,6 +51,7 @@ export default {
         padding: 0 10px;
         // height: 40px;
         line-height: 40px;
+        cursor: pointer;
       }
     }
     .el-main {

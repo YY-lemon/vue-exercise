@@ -38,7 +38,7 @@ export default {
       this.rightId = a.id
     }
   },
-  mounted() {
+  created() {
     getTreeData().then(res => {
       console.log(res)
       this.treeData = res.treeData
