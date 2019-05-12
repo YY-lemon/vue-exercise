@@ -20,49 +20,12 @@
     </div>
   </div>
 </template>
-           
 <script>
+import { getTreeData } from '@/api/api.js'
 export default {
   data() {
     return {
-      treeData: [
-        {
-          id: 1,
-          label: '一级 1',
-          icon: "el-icon-menu",
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            icon: 'el-icon-info'
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          icon: "el-icon-menu",
-          children: [{
-            id: 5,
-            label: '二级 2-1',
-            icon: 'el-icon-info'
-          }, {
-            id: 6,
-            label: '二级 2-2',
-            icon: 'el-icon-info'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          icon: "el-icon-menu",
-          children: [{
-            id: 7,
-            label: '二级 3-1',
-            icon: 'el-icon-info'
-          }, {
-            id: 8,
-            label: '二级 3-2',
-            icon: 'el-icon-info'
-          }]
-        }
-      ], //  左边树节点数据
+      treeData: [], //  左边树节点数据
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -75,10 +38,11 @@ export default {
       this.rightId = a.id
     }
   },
-  watch: {
-    rightId() {
-      alert('我变化了')
-    }
+  mounted() {
+    getTreeData().then(res => {
+      console.log(res)
+      this.treeData = res.treeData
+    })
   },
 }
 </script>

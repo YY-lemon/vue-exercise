@@ -1,6 +1,4 @@
 import axios from 'axios'
-export function getTreeDataApi() {
-  return axios.get('/treeData').then((res => {
-    return res.data
-  }))
+export const getTreeData = params => {
+  return axios.get('/treeData', params).then(res => res.data)
 }
