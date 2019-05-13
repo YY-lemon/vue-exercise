@@ -96,3 +96,14 @@ const getTabledata = function ({
 }
 Mock.mock('/treeData', /post|get/i, getdata)
 Mock.mock('/tableData', /post|get/i, getTabledata)
+Mock.mock('/login',(parmas)=> {
+  if (!(parmas.userName&&parmas.passWord)) {
+    return {
+      data:{
+        message:'用户名或密码不正确',
+        code:0,
+        // token:Mock.mock('@string(10)')
+      }
+    }
+  }
+})
