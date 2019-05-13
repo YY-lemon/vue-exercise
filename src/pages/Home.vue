@@ -57,9 +57,8 @@ export default {
     .el-main {
       background-color: #e9eef3;
       color: #333;
-      // text-align: center;
-      // line-height: 160px;
-      height: calc(100%-60px);
+      // height: calc(100%-60px);
+      height: calc(100% - 60px);
       padding: 0;
     }
   }
