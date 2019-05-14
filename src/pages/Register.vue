@@ -48,14 +48,22 @@
           <el-col :span="24">
             <el-date-picker v-model="value1"
                             type="date"
-                            placeholder="选择日期">
+                            placeholder="选择日期"
+                            style="width:100%;">
             </el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item prop="gender"
                       label="性别">
-          <el-input v-model="userForm.idcard"
-                    placeholder="请输入身份证号"></el-input>
+          <el-select v-model="value"
+                     placeholder="请选择性别"
+                     style="width:100%;">
+            <el-option v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary">确定</el-button>
@@ -69,9 +77,106 @@
 <script>
 export default {
   data() {
+    // 验证密码
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        if (this.userForm.againpassword !== '') {
+          this.$refs.userForm.validateField('againpassword');
+        }
+        callback();
+      }
+    };
+    // 验证确认密码
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.userForm.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
+    // 验证邮箱
+    var emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    var validateEmail = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入邮箱'));
+      } else {
+        if (!emailReg.test(this.userForm.email)) {
+          callback(new Error('请输入正确的邮箱'));
+        } else {
+          callback();
+        }
+      }
+    };
+    // 验证手机号
+    var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    var validatePhone = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'));
+      } else {
+        if (!phoneReg.test(this.userForm.phone)) {
+          callback(new Error('请输入正确的手机号'));
+        } else {
+          callback();
+        }
+
+      }
+    };
+    // 验证身份证号
+    var cardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    var validateCard = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入身份证号'));
+      } else {
+        if (!cardReg.test(this.userForm.idcard)) {
+          callback(new Error('请输入正确的身份证号'));
+        } else {
+          callback();
+        }
+
+      }
+    }
     return {
       userForm: {},
-      value1: ''
+      value1: '',
+      options: [{
+        value: '选项1',
+        label: '男'
+      }, {
+        value: '选项2',
+        label: '女'
+      }],
+      value: '',
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名称', trigger: 'blur' },
+        ],
+        accountname: [
+          { required: true, message: '请输入账号名称', trigger: 'blur' },
+        ],
+        password: [
+          { validator: validatePass, trigger: 'blur' },
+        ],
+        againpassword: [
+          { validator: validatePass2, trigger: 'blur' },
+        ],
+        email: [
+          { validator: validateEmail, trigger: 'blur' },
+        ],
+        phone: [
+          { validator: validatePhone, trigger: 'blur' },
+        ],
+        idcard: [
+          { validator: validateCard, trigger: 'blur' },
+        ],
+        birthDay: [
+          { type: 'date', required: true, message: '请选择时间', trigger: 'blur' }
+        ],
+        gender: [{ required: true, message: '请选择性别', trigger: 'blur' },]
+      }
     }
   },
 }
@@ -81,7 +186,6 @@ export default {
   line-height: 60px;
   text-align: center;
   .re-title {
-    width: 60px;
     height: 60px;
     background-color: #324157;
     color: #fff;
