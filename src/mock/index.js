@@ -96,14 +96,32 @@ const getTabledata = function ({
 }
 Mock.mock('/treeData', /post|get/i, getdata)
 Mock.mock('/tableData', /post|get/i, getTabledata)
-Mock.mock('/login',(parmas)=> {
+Mock.mock('/login',({body})=> {
+  let parmas = JSON.parse(body)
   if (!(parmas.userName&&parmas.passWord)) {
     return {
-      data:{
-        message:'用户名或密码不正确',
-        code:0,
-        // token:Mock.mock('@string(10)')
-      }
+      message:'用户名或密码不正确',
+      code:0,
+      // token:Mock.mock('@string(10)')
+    }
+  }
+  if (parmas.userName !== 'YY-lemon' && parmas.passWord !== 123456) {
+    return {
+      message:'用户名或密码不正确',
+      code:0,
+      // token:Mock.mock('@string(10)')
+    }
+  } else {
+    return {
+      message:'登录成功',
+      code:1,
+      token:Mock.mock('@string(32)')
     }
   }
 })
+// console.log(Mock.mock({
+//     message:'登录成功',
+//     code:1,
+//     token:Mock.mock('@string(32)')
+//   })
+// )
