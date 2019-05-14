@@ -6,27 +6,30 @@
                :model="userForm"
                label-width="0px"
                :rules="rules">
-        <el-form-item prop="username">
-          <el-input v-model="userForm.username"
-                    placeholder="账号"></el-input>
+        <el-form-item prop="userName">
+          <el-input v-model="userForm.userName"
+                    placeholder="账号"
+                    autocomplete="on"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="userForm.password"
+        <el-form-item prop="passWord">
+          <el-input v-model="userForm.passWord"
                     type="password"
                     placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item prop="validate">
           <el-input v-model="userForm.validate"
                     placeholder="验证码"
-                    class="validate-code"></el-input>
+                    class="validate-code"
+                    @keydown.native.enter="loginBtn(userForm)"></el-input>
           <!-- 验证码 -->
-          <div class="code">
-            <Identify></Identify>
-            <!-- <s-identify :identifyCode="identifyCode"></s-identify> -->
+          <div class="code"
+               @click="refreshCode">
+            <Identify :identifyCode="identifyCode"></Identify>
           </div>
         </el-form-item>
         <div class="login-btn">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary"
+                     @click="loginBtn(userForm)">登录</el-button>
         </div>
         <p class="register"
            @click="handleRegister">注册</p>
@@ -37,18 +40,25 @@
            
 <script>
 import Identify from '@/pages/Identify.vue'
+import { checkLogin } from '@/api/api.js'
 export default {
   components: {
     Identify,
   },
   data() {
     return {
-      userForm: {},
+      identifyCodes: "1234567890",
+      identifyCode: "",
+      userForm: {
+        userName: '',
+        passWord: '',
+        validate: ''
+      },
       rules: {
-        username: [
+        userName: [
           { required: true, message: '请输入账号', trigger: 'blur' },
         ],
-        password: [
+        passWord: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         validate: [
@@ -57,10 +67,52 @@ export default {
       }
     }
   },
+  mounted() {
+    this.identifyCode = "";
+    this.makeCode(this.identifyCodes, 4);
+  },
   methods: {
+    // 登录按钮
+    loginBtn(userForm) {
+      this.$refs.userForm.validate((valid) => {
+        if (valid) {
+          checkLogin(this.userForm).then(res => {
+            console.log(res)
+            // 请求成功后保存token值
+            let token = localStorage.setItem('mytoken', res.token)
+            if (res.code == 1) {
+              this.$router.push({ name: 'Home' })
+            } else {
+              this.$message.warning(res.message)
+            }
+          })
+        } else {
+          console.log('校验不通过');
+          return false;
+        }
+      })
+    },
+    // 注册按钮
     handleRegister() {
       this.$router.push('/register')
-    }
+    },
+    // 随机数
+    randomNum(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
+    // 验证码
+    refreshCode() {
+      this.identifyCode = "";
+      this.makeCode(this.identifyCodes, 4);
+    },
+    makeCode(o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[
+          this.randomNum(0, this.identifyCodes.length)
+        ];
+      }
+      console.log(this.identifyCode);
+    },
   },
 }
 </script>

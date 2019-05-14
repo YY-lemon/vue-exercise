@@ -7,3 +7,7 @@ export const getTreeData = params => {
 export const getTableData = params => {
   return axios.post('/tableData', params).then(res => res.data)
 }
+// 登录验证
+export const checkLogin = params => {
+  return axios.post('/login', params).then(res => res.data)
+}

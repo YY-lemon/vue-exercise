@@ -67,7 +67,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary">确定</el-button>
-          <el-button>取消</el-button>
+          <el-button @click="cancleRegister">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -79,7 +79,7 @@ export default {
   data() {
     // 验证密码
     var validatePass = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请输入密码'));
       } else {
         if (this.userForm.againpassword !== '') {
@@ -90,7 +90,7 @@ export default {
     };
     // 验证确认密码
     var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请再次输入密码'));
       } else if (value !== this.userForm.password) {
         callback(new Error('两次输入密码不一致!'));
@@ -101,7 +101,7 @@ export default {
     // 验证邮箱
     var emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
     var validateEmail = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请输入邮箱'));
       } else {
         if (!emailReg.test(this.userForm.email)) {
@@ -114,7 +114,7 @@ export default {
     // 验证手机号
     var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
     var validatePhone = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请输入手机号'));
       } else {
         if (!phoneReg.test(this.userForm.phone)) {
@@ -128,7 +128,7 @@ export default {
     // 验证身份证号
     var cardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     var validateCard = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请输入身份证号'));
       } else {
         if (!cardReg.test(this.userForm.idcard)) {
@@ -179,6 +179,12 @@ export default {
       }
     }
   },
+  methods: {
+    // 取消按钮
+    cancleRegister() {
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 <style lang='less' scoped>
