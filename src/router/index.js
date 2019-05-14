@@ -5,6 +5,7 @@ import Navbar from '@/pages/Navbar'
 import TableBar from '@/pages/TableBar'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import Index from '@/pages/Index'
 
 Vue.use(Router)
 
@@ -18,6 +19,10 @@ export default new Router({
     path: '/register',
     name: 'Register',
     component: Register
+  }, {
+    path: '/index',
+    name: 'Index',
+    component: Index
   }, {
     path: '/',
     name: 'Home',
