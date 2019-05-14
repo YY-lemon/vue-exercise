@@ -119,9 +119,3 @@ Mock.mock('/login',({body})=> {
     }
   }
 })
-// console.log(Mock.mock({
-//     message:'登录成功',
-//     code:1,
-//     token:Mock.mock('@string(32)')
-//   })
-// )
