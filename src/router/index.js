@@ -6,6 +6,8 @@ import TableBar from '@/pages/TableBar'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Index from '@/pages/Index'
+import Lemon from '@/components/Lemon'
+import UserList from '@/components/UserList'
 
 Vue.use(Router)
 let router = new Router({
@@ -21,7 +23,16 @@ let router = new Router({
   }, {
     path: '/index',
     name: 'Index',
-    component: Index
+    component: Index,
+    children: [{
+      path: 'lemon',
+      name: 'Lemon',
+      component: Lemon
+    }, {
+      path: 'userList',
+      name: 'UserList',
+      component: UserList
+    }, ]
   }, {
     path: '/',
     name: 'Home',
