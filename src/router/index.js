@@ -8,8 +8,7 @@ import Register from '@/pages/Register'
 import Index from '@/pages/Index'
 
 Vue.use(Router)
-
-export default new Router({
+let router = new Router({
   // mode: 'history',
   routes: [{
     path: '/login',
@@ -39,5 +38,23 @@ export default new Router({
       name: 'tableBar',
       component: TableBar,
     }]
-  }, ]
+  }]
 })
+
+// 路由全局守卫
+router.beforeEach((to, from, next) => {
+  let token = localStorage.getItem('mytoken')
+  if (token) {
+    next()
+  } else {
+    if (to.path !== '/login') {
+      next({
+        path: '/login'
+      })
+    } else {
+      next()
+    }
+  }
+
+})
+export default router

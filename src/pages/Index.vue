@@ -2,12 +2,116 @@
   <div class="homePage">
     <el-container>
       <el-header class="header">
-        <div class="logo"><img src=""
-               alt=""></div>
+        <div class="logo-container">
+          <img src="../assets/orange.png"
+               alt=""
+               class="logo">
+          <span class="title">小胖后台管理系统</span>
+        </div>
+        <div class="userInfo">
+          <img src="../assets/user.png"
+               alt=""
+               class="avatar">
+          <div class="welcome">
+            <p class='name comename'>欢迎</p>
+            <p class='name avatarname'>xxx</p>
+          </div>
+          <span class="username">
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                <i class="el-icon-caret-bottom"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>修改信息</el-dropdown-item>
+                <el-dropdown-item>修改密码</el-dropdown-item>
+                <el-dropdown-item>退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </span>
+          <!-- <i class="icon icon-tuichu"></i> -->
+          <i class="el-icon-switch-button"></i>
+        </div>
       </el-header>
       <el-container class="main">
         <el-main>
-          <div class="left">Aside</div>
+          <div class="left">
+            <el-row class="menu-page">
+              <el-col :span="24">
+                <el-menu default-active="2"
+                         class="el-menu-vertical-demo"
+                         text-color="#fff"
+                         active-text-color="#ffd04b"
+                         background-color="#324057"
+                         @open="handleOpen"
+                         @close="handleClose">
+                  <el-menu-item index="1">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">首页</span>
+                  </el-menu-item>
+                  <el-menu-item index="2">
+                    <i class="el-icon-document"></i>
+                    <span slot="title">用户列表</span>
+                  </el-menu-item>
+                  <el-menu-item index="3">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">信息列表</span>
+                  </el-menu-item>
+                  <el-submenu index="4">
+                    <template slot="title">
+                      <i class="el-icon-location"></i>
+                      <span>信息管理</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item>个人信息</el-menu-item>
+                      <el-menu-item>修改信息</el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+                  <el-submenu index="5">
+                    <template slot="title">
+                      <i class="el-icon-location"></i>
+                      <span>资金管理</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item>资金流水</el-menu-item>
+                      <el-menu-item>支付单据</el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+                  <el-submenu index="6">
+                    <template slot="title">
+                      <i class="el-icon-location"></i>
+                      <span>投资管理</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item>省份投资</el-menu-item>
+                      <el-menu-item>区域投资</el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+                  <el-submenu index="7">
+                    <template slot="title">
+                      <i class="el-icon-location"></i>
+                      <span>金融文章</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item>发布文章</el-menu-item>
+                      <el-menu-item>编辑文章</el-menu-item>
+                      <el-menu-item>查看文章</el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+                  <el-submenu index="8">
+                    <template slot="title">
+                      <i class="el-icon-location"></i>
+                      <span>资金数据</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item>投资分布</el-menu-item>
+                      <el-menu-item>项目分布</el-menu-item>
+                      <el-menu-item>收支统计</el-menu-item>
+                    </el-menu-item-group>
+                  </el-submenu>
+                </el-menu>
+              </el-col>
+            </el-row>
+          </div>
           <div class="right">
             <div class="content">
               <div class="bread_container">
@@ -78,6 +182,11 @@
            
 <script>
 export default {
+  data() {
+    return {
+
+    }
+  },
   mounted() {
     this.drawLine()
   },
@@ -365,42 +474,6 @@ export default {
           }
         ]
       });
-      function genData(count) {
-        var nameList = [
-          '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
-        ];
-        var legendData = [];
-        var seriesData = [];
-        var selected = {};
-        for (var i = 0; i < 50; i++) {
-          name = Math.random() > 0.65
-            ? makeWord(4, 1) + '·' + makeWord(3, 0)
-            : makeWord(2, 1);
-          legendData.push(name);
-          seriesData.push({
-            name: name,
-            value: Math.round(Math.random() * 100000)
-          });
-          selected[name] = i < 6;
-        }
-
-        return {
-          legendData: legendData,
-          seriesData: seriesData,
-          selected: selected
-        };
-
-        function makeWord(max, min) {
-          var nameLen = Math.ceil(Math.random() * max + min);
-          var name = [];
-          for (var i = 0; i < nameLen; i++) {
-            name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
-          }
-          return name.join('');
-        }
-      }
-
-      var data = genData(50);
       pieChart3.setOption({
         title: {
           text: '用户投资区域',
@@ -412,23 +485,25 @@ export default {
           formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-          type: 'scroll',
           orient: 'vertical',
-          x: 'left',
-          // right: 10,
-          // top: 20,
-          // bottom: 20,
-          data: data.legendData,
-
-          selected: data.selected
+          left: 'left',
+          data: ['华东区', '华南区', '华中区', '华北区', '西南区', '东北区', '台港澳']
         },
         series: [
           {
-            name: '姓名',
+            name: '访问来源',
             type: 'pie',
             radius: '55%',
-            center: ['40%', '50%'],
-            data: data.seriesData,
+            center: ['50%', '60%'],
+            data: [
+              { value: 335, name: '华东区' },
+              { value: 310, name: '华南区' },
+              { value: 234, name: '华中区' },
+              { value: 835, name: '华北区' },
+              { value: 1548, name: '西南区' },
+              { value: 335, name: '东北区' },
+              { value: 454, name: '台港澳' }
+            ],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -438,7 +513,14 @@ export default {
             }
           }
         ]
-      })
+      });
+    },
+    // 左侧菜单
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     }
   }
 }
@@ -451,12 +533,63 @@ export default {
     .header {
       height: 60px;
       background-image: url("../assets/blue.png");
-    }
-    .el-header {
-      background-color: #b3c0d1;
-      color: #333;
-      text-align: center;
+      color: #fff;
       line-height: 60px;
+      .logo-container {
+        line-height: 60px;
+        min-width: 400px;
+        float: left;
+        .logo {
+          height: 50px;
+          width: 50px;
+          margin-right: 5px;
+          vertical-align: middle;
+          display: inline-block;
+        }
+        .title {
+          vertical-align: middle;
+          font-size: 22px;
+          font-family: cursive;
+          letter-spacing: 3px;
+        }
+      }
+      .userInfo {
+        line-height: 60px;
+        text-align: right;
+        float: right;
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          vertical-align: middle;
+          display: inline-block;
+        }
+        .welcome {
+          display: inline-block;
+          width: auto;
+          vertical-align: middle;
+          padding: 0 5px;
+          .name {
+            line-height: 20px;
+            text-align: center;
+            font-size: 14px;
+          }
+          .comename {
+            font-size: 12px;
+          }
+          .avatarname {
+            color: #a9d86e;
+            font-weight: bolder;
+          }
+        }
+      }
+      .username {
+        cursor: pointer;
+        margin-right: 5px;
+        .el-dropdown {
+          color: #fff;
+        }
+      }
     }
     .el-main {
       background-color: rgb(50, 64, 87);
@@ -471,6 +604,9 @@ export default {
         text-align: center;
         line-height: 200px;
         float: left;
+        .menu-page {
+          background-color: rgb(50, 64, 87);
+        }
       }
       .right {
         margin-left: 200px;
