@@ -79,6 +79,7 @@ export default {
   data() {
     // 验证密码
     var validatePass = (rule, value, callback) => {
+      // console.log(rule);
       if (!value) {
         callback(new Error('请输入密码'));
       } else {
