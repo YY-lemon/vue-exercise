@@ -43,30 +43,36 @@
                        background-color="#324057"
                        @open="handleOpen"
                        @close="handleClose">
-                <router-link to="/index">
+                <router-link to="/index/lemon">
                   <el-menu-item>
                     <i class="el-icon-menu"></i>
                     <span slot="title">首页</span>
                   </el-menu-item>
                 </router-link>
-                <router-link to="/userList">
+                <router-link to="/index/userList">
                   <el-menu-item>
                     <i class="el-icon-document"></i>
                     <span slot="title">用户列表</span>
                   </el-menu-item>
                 </router-link>
-                <el-menu-item index="3">
-                  <i class="el-icon-setting"></i>
-                  <span slot="title">信息列表</span>
-                </el-menu-item>
+                <router-link to="/index/infoList">
+                  <el-menu-item index="3">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">信息列表</span>
+                  </el-menu-item>
+                </router-link>
                 <el-submenu index="4">
                   <template slot="title">
                     <i class="el-icon-location"></i>
                     <span>信息管理</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item>个人信息</el-menu-item>
-                    <el-menu-item>修改信息</el-menu-item>
+                    <router-link to="/index/infoShow">
+                      <el-menu-item>个人信息</el-menu-item>
+                    </router-link>
+                    <router-link to="/index/infoModify">
+                      <el-menu-item>修改信息</el-menu-item>
+                    </router-link>
                   </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="5">
@@ -75,8 +81,12 @@
                     <span>资金管理</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item>资金流水</el-menu-item>
-                    <el-menu-item>支付单据</el-menu-item>
+                    <router-link to="/index/fundList">
+                      <el-menu-item>资金流水</el-menu-item>
+                    </router-link>
+                    <router-link to="/index/payList">
+                      <el-menu-item>支付单据</el-menu-item>
+                    </router-link>
                   </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="6">
@@ -116,8 +126,8 @@
           </el-row>
         </div>
         <div class="right">
-          <!-- <Lemon></Lemon>
-          <UserList></UserList> -->
+          <!-- <Lemon></Lemon>-->
+          <!-- <UserList></UserList> -->
           <router-view></router-view>
         </div>
       </el-main>
@@ -127,18 +137,18 @@
 </template>
            
 // <script>
-import Lemon from '@/components/Lemon.vue'
-import UserList from '@/components/UserList.vue'
+// import Lemon from '@/components/Lemon.vue'
+// import UserList from '@/components/UserList.vue'
 export default {
   data() {
     return {
 
     }
   },
-  components: {
-    Lemon,
-    UserList,
-  },
+  // components: {
+  //   Lemon,
+  //   UserList,
+  // },
   methods: {
     // 左侧菜单
     handleOpen(key, keyPath) {
@@ -217,6 +227,7 @@ export default {
       }
     }
     .main {
+      height: calc(100% - 100px);
       padding: 0;
       .left {
         width: 200px;
@@ -232,6 +243,7 @@ export default {
       .right {
         margin-left: 200px;
         overflow-y: auto;
+        // background-color: #fff;
         height: calc(100% - 40px);
       }
     }

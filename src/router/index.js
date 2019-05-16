@@ -8,6 +8,11 @@ import Register from '@/pages/Register'
 import Index from '@/pages/Index'
 import Lemon from '@/components/Lemon'
 import UserList from '@/components/UserList'
+import InfoList from '@/components/InfoList'
+import InfoShow from '@/components/InfoShow'
+import InfoModify from '@/components/InfoModify'
+import FundList from '@/components/FundList'
+import PayList from '@/components/PayList'
 
 Vue.use(Router)
 let router = new Router({
@@ -24,15 +29,38 @@ let router = new Router({
     path: '/index',
     name: 'Index',
     component: Index,
+    redirect: {
+      path: '/index/lemon'
+    },
     children: [{
       path: 'lemon',
       name: 'Lemon',
-      component: Lemon
+      component: Lemon,
     }, {
       path: 'userList',
       name: 'UserList',
       component: UserList
-    }, ]
+    }, {
+      path: 'infoList',
+      name: 'InfoList',
+      component: InfoList
+    }, {
+      path: 'infoShow',
+      name: 'InfoShow',
+      component: InfoShow
+    }, {
+      path: 'infoModify',
+      name: 'InfoModify',
+      component: InfoModify
+    }, {
+      path: 'fundList',
+      name: 'FundList',
+      component: FundList
+    }, {
+      path: 'payList',
+      name: 'PayList',
+      component: PayList
+    }]
   }, {
     path: '/',
     name: 'Home',
